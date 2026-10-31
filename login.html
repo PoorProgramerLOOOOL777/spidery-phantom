@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101525">
+  <title>Iniciar sesión</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #101525;
+      color: #f5f7ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(ellipse at 18% 18%, rgba(115, 91, 255, .23), transparent 42%),
+        radial-gradient(ellipse at 85% 82%, rgba(27, 190, 183, .16), transparent 38%),
+        #101525;
+    }
+
+    .card {
+      width: min(100%, 420px);
+      padding: 42px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 24px;
+      background: rgba(22, 29, 49, .88);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .35);
+      backdrop-filter: blur(14px);
+    }
+
+    .mark {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 28px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #8c7bff, #55d8ca);
+      color: #101525;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    h1 { margin: 0 0 9px; font-size: 30px; letter-spacing: -.7px; }
+    .intro { margin: 0 0 30px; color: #aeb6cb; line-height: 1.55; }
+    label { display: block; margin: 18px 0 8px; color: #dce1ef; font-size: 14px; font-weight: 600; }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid #39435e;
+      border-radius: 12px;
+      outline: none;
+      background: #12192b;
+      color: #f5f7ff;
+      font: inherit;
+      transition: border-color .18s, box-shadow .18s;
+    }
+
+    input::placeholder { color: #77819a; }
+    input:focus { border-color: #8c7bff; box-shadow: 0 0 0 3px rgba(140, 123, 255, .18); }
+
+    button {
+      width: 100%;
+      margin-top: 26px;
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(105deg, #8c7bff, #65cfc5);
+      color: #11162a;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      transition: filter .18s, transform .18s;
+    }
+
+    button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    .note { margin: 20px 0 0; color: #8993aa; font-size: 12px; text-align: center; }
+
+    @media (max-width: 480px) {
+      .card { padding: 32px 24px; }
+      h1 { font-size: 27px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark" aria-hidden="true">↗</div>
+    <h1>Bienvenido</h1>
+    <p class="intro">Inicia sesión para continuar.</p>
+
+    <form id="login-form">
+      <label for="usuario">Usuario</label>
+      <input id="usuario" name="usuario" type="text" placeholder="Escribe tu usuario" autocomplete="username">
+
+      <label for="contrasena">Contraseña</label>
+      <input id="contrasena" name="contrasena" type="password" placeholder="Escribe tu contraseña" autocomplete="current-password">
+
+      <button type="submit">Entrar</button>
+    </form>
+    <p class="note">Pulsa “Entrar” para continuar.</p>
+  </main>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

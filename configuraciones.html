@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101525">
+  <title>Configuraciones</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --page: #101525;
+      --panel: #171e32;
+      --panel-soft: #12192b;
+      --text: #f5f7ff;
+      --muted: #aeb6cb;
+      --subtle: #818ba4;
+      --line: rgba(255, 255, 255, .1);
+      --accent: #9b8cff;
+      --mint: #65d4c8;
+      background: var(--page);
+      color: var(--text);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 12% 0%, rgba(115, 91, 255, .16), transparent 38%),
+        radial-gradient(ellipse at 100% 100%, rgba(27, 190, 183, .1), transparent 34%),
+        var(--page);
+    }
+
+    a { color: inherit; }
+
+    .topbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px max(24px, calc((100vw - 1080px) / 2));
+      border-bottom: 1px solid var(--line);
+      background: rgba(16, 21, 37, .72);
+      backdrop-filter: blur(14px);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 650;
+      transition: color .18s, transform .18s;
+    }
+
+    .back-link:hover { color: var(--text); transform: translateX(-2px); }
+    .back-link:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+
+    .arrow {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--panel);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    main {
+      width: min(100% - 40px, 820px);
+      margin: 58px auto 80px;
+    }
+
+    .heading { margin-bottom: 30px; }
+    .eyebrow { margin: 0 0 10px; color: var(--mint); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(30px, 5vw, 42px); letter-spacing: -.04em; }
+    .intro { max-width: 570px; margin: 12px 0 0; color: var(--muted); line-height: 1.65; }
+
+    .settings-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(23, 30, 50, .88);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .24);
+      backdrop-filter: blur(14px);
+    }
+
+    .section-title { margin: 0; padding: 23px 26px 13px; color: var(--subtle); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+
+    .setting-row {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 17px 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .setting-copy { min-width: 0; }
+    .setting-name { display: block; font-size: 15px; font-weight: 700; }
+    .setting-help { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    select {
+      min-width: 150px;
+      padding: 10px 36px 10px 12px;
+      border: 1px solid #39435e;
+      border-radius: 10px;
+      background: var(--panel-soft);
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .switch { position: relative; flex: 0 0 auto; width: 48px; height: 28px; }
+    .switch input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .switch-track { position: absolute; inset: 0; border: 1px solid #505a73; border-radius: 20px; background: #303950; cursor: pointer; transition: .2s; }
+    .switch-track::after { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #dce1ef; content: ""; transition: .2s; }
+    .switch input:checked + .switch-track { border-color: #8c7bff; background: #7160df; }
+    .switch input:checked + .switch-track::after { transform: translateX(20px); background: #fff; }
+    .switch input:focus-visible + .switch-track { outline: 3px solid var(--mint); outline-offset: 3px; }
+
+    .range-control { display: flex; align-items: center; gap: 12px; min-width: 190px; }
+    input[type="range"] { width: 140px; accent-color: var(--accent); cursor: pointer; }
+    output { min-width: 38px; color: var(--muted); font-size: 13px; text-align: right; }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 18px;
+      color: var(--subtle);
+      font-size: 12px;
+    }
+
+    .reset {
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      cursor: pointer;
+      transition: border-color .18s, color .18s;
+    }
+    .reset:hover { border-color: #8c7bff; color: var(--text); }
+
+    body.light {
+      color-scheme: light;
+      --page: #f2f4fb;
+      --panel: #fff;
+      --panel-soft: #f6f7fc;
+      --text: #20263b;
+      --muted: #626b82;
+      --subtle: #737d95;
+      --line: rgba(35, 44, 68, .13);
+      background: var(--page);
+    }
+    body.light .topbar { background: rgba(242, 244, 251, .82); }
+    body.light .settings-card { background: rgba(255, 255, 255, .9); }
+    body.light select { border-color: #d4d9e6; }
+
+    @media (max-width: 560px) {
+      .topbar { padding: 14px 20px; }
+      main { width: min(100% - 28px, 820px); margin: 38px auto 54px; }
+      .setting-row { align-items: flex-start; padding: 17px 18px; }
+      .section-title { padding-left: 18px; }
+      .setting-help { max-width: 270px; }
+      select { min-width: 125px; }
+      .range-control { min-width: 120px; }
+      input[type="range"] { width: 82px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="back-link" href="index.html" aria-label="Volver al lienzo, archivo index.html">
+      <span class="arrow" aria-hidden="true">←</span>
+      <span>Volver al lienzo</span>
+    </a>
+  </header>
+
+  <main>
+    <div class="heading">
+      <p class="eyebrow">Preferencias</p>
+      <h1>Configuraciones</h1>
+      <p class="intro">Personaliza cómo se ve y cómo funciona tu lienzo. Los cambios se guardan en este navegador.</p>
+    </div>
+
+    <section class="settings-card" aria-label="Opciones de configuración">
+      <h2 class="section-title">Apariencia</h2>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <label class="setting-name" for="theme">Tema</label>
+          <span class="setting-help">Elige el aspecto de esta página.</span>
+        </div>
+        <select id="theme" name="theme">
+          <option value="dark">Oscuro</option>
+          <option value="light">Claro</option>
+        </select>
+      </div>
+
+      <h2 class="section-title">Lienzo</h2>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <label class="setting-name" for="show-grid">Mostrar cuadrícula</label>
+          <span class="setting-help">Muestra una guía para alinear elementos.</span>
+        </div>
+        <label class="switch" aria-label="Mostrar cuadrícula">
+          <input id="show-grid" type="checkbox">
+          <span class="switch-track" aria-hidden="true"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <label class="setting-name" for="snap-grid">Ajustar a la cuadrícula</label>
+          <span class="setting-help">Alinea los elementos al moverlos.</span>
+        </div>
+        <label class="switch" aria-label="Ajustar a la cuadrícula">
+          <input id="snap-grid" type="checkbox">
+          <span class="switch-track" aria-hidden="true"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <label class="setting-name" for="zoom">Zoom predeterminado</label>
+          <span class="setting-help">Nivel inicial de acercamiento del lienzo.</span>
+        </div>
+        <div class="range-control">
+          <input id="zoom" type="range" min="50" max="150" step="10" value="100">
+          <output id="zoom-value" for="zoom">100%</output>
+        </div>
+      </div>
+
+      <h2 class="section-title">Guardado</h2>
+      <div class="setting-row">
+        <div class="setting-copy">
+          <label class="setting-name" for="autosave">Guardado automático</label>
+          <span class="setting-help">Guarda los cambios del lienzo automáticamente.</span>
+        </div>
+        <label class="switch" aria-label="Guardado automático">
+          <input id="autosave" type="checkbox" checked>
+          <span class="switch-track" aria-hidden="true"></span>
+        </label>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span id="save-status" role="status" aria-live="polite">Configuración guardada en este navegador.</span>
+      <button class="reset" id="reset" type="button">Restablecer</button>
+    </div>
+  </main>
+
+  <script>
+    const defaults = { theme: "dark", showGrid: false, snapGrid: false, zoom: 100, autosave: true };
+    const controls = {
+      theme: document.getElementById("theme"),
+      showGrid: document.getElementById("show-grid"),
+      snapGrid: document.getElementById("snap-grid"),
+      zoom: document.getElementById("zoom"),
+      autosave: document.getElementById("autosave")
+    };
+    const status = document.getElementById("save-status");
+    const zoomValue = document.getElementById("zoom-value");
+
+    function loadSettings() {
+      try {
+        return { ...defaults, ...JSON.parse(localStorage.getItem("lienzo-configuraciones") || "{}") };
+      } catch {
+        return { ...defaults };
+      }
+    }
+
+    function applySettings(settings) {
+      controls.theme.value = settings.theme === "light" ? "light" : "dark";
+      controls.showGrid.checked = Boolean(settings.showGrid);
+      controls.snapGrid.checked = Boolean(settings.snapGrid);
+      controls.zoom.value = String(Math.min(150, Math.max(50, Number(settings.zoom) || 100)));
+      controls.autosave.checked = Boolean(settings.autosave);
+      document.body.classList.toggle("light", controls.theme.value === "light");
+      zoomValue.value = `${controls.zoom.value}%`;
+      zoomValue.textContent = `${controls.zoom.value}%`;
+    }
+
+    function saveSettings() {
+      const settings = {
+        theme: controls.theme.value,
+        showGrid: controls.showGrid.checked,
+        snapGrid: controls.snapGrid.checked,
+        zoom: Number(controls.zoom.value),
+        autosave: controls.autosave.checked
+      };
+      document.body.classList.toggle("light", settings.theme === "light");
+      zoomValue.value = `${settings.zoom}%`;
+      zoomValue.textContent = `${settings.zoom}%`;
+      try {
+        localStorage.setItem("lienzo-configuraciones", JSON.stringify(settings));
+        status.textContent = "Configuración guardada en este navegador.";
+      } catch {
+        status.textContent = "No se pudo guardar; revisa la configuración de almacenamiento del navegador.";
+      }
+    }
+
+    Object.values(controls).forEach((control) => control.addEventListener("change", saveSettings));
+    controls.zoom.addEventListener("input", () => {
+      zoomValue.value = `${controls.zoom.value}%`;
+      zoomValue.textContent = `${controls.zoom.value}%`;
+    });
+    document.getElementById("reset").addEventListener("click", () => {
+      applySettings(defaults);
+      saveSettings();
+    });
+
+    applySettings(loadSettings());
+  </script>
+</body>
+</html>
